@@ -33,6 +33,7 @@ CREATE TABLE favorites (
 
 CREATE TABLE ratings_reivews (
  id SERIAL PRIMARY KEY NOT NULL,
+ recipe_id INTEGER REFERENCES recipes(id) NOT NULL,
  user_id INTEGER REFERENCES users(id) NOT NULL,
  rating_score FLOAT NOT NULL,
  review TEXT NOT NULL
