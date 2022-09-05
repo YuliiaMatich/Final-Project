@@ -1,9 +1,8 @@
 import React from 'react';
 import RecipeContainer from './recipecontainer';
+import Loading from './loading';
 
-let arr = [0, 1, 2, 3, 4, 5];
-
-const Homepage = function () {
+const Homepage = function ({randomRecipes}) {
 
   return (
     <div className="homepage-main">
@@ -105,7 +104,10 @@ const Homepage = function () {
           </div>
 
           <div className='recipes'>
-            {arr.map(elem => <RecipeContainer key={elem}/>)}
+            {randomRecipes?randomRecipes.map(recipe => <RecipeContainer
+              recipeTitle={recipe.title}
+              recipeImg={recipe.recipeImg}
+              key={recipe.id}/>):<Loading />}
           </div>
         </div>
       </div>

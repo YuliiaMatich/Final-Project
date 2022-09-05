@@ -31,7 +31,7 @@ const fetchFood = function(limitNumber) {
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  fetchFood(2).then(response => res.json(response));
+  fetchFood(6).then(response => res.json(response));
 })
 
 

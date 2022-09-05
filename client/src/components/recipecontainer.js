@@ -1,10 +1,10 @@
 import React from "react";
 
-const RecipeContainer = function () {
+const RecipeContainer = function ({recipeTitle, recipeImg}) {
   return (
     <div className="recipe-container" onClick={() => console.log('click')}>
-      <img className="recipe-container-image" src={"https://spoonacular.com/recipeImages/632481-556x370.jpg"} />
-      <h2 className="recipe-container-text">Apple Pie</h2>
+      <img className="recipe-container-image" src={recipeImg} />
+      <h4 className="recipe-container-text">{recipeTitle}</h4>
     </div>
   )
 }

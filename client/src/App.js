@@ -1,15 +1,23 @@
 import './App.css';
 import Navbar from './components/navbar';
 import Homepage from './components/homepage';
-import RecipeContainer from './components/recipecontainer';
-
-
+import axios from 'axios';
+import {useState, useEffect} from 'react';
 
 function App() {
+  const [randomRecipes, setRandomRecipes] = useState(null);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/home")
+    .then(res => setRandomRecipes(res.data))
+  }, [])
+
   return (
     <div className="App">
       <Navbar />
-      <Homepage/>
+      <Homepage
+        randomRecipes={randomRecipes}
+      />
     </div>
   );
 }
