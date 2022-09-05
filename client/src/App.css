@@ -39,13 +39,26 @@
     height: 393px;
     color: white;
     margin: 2rem;
+    box-shadow: 5px 5px 5px lightgrey;
 }
+
+.recipe-container:hover {
+  cursor: pointer;
+  box-shadow: 8px 8px 5px darkgrey;
+  border: 0px groove #495057;
+  background-color: white;
+  color: #495057;
+  
+}
+
 
 .recipe-container-image {
   object-fit: cover;
   object-position: center;
   height: 320px;
-  width: 397px;
+  width: 398px;
+  
+  
 }
 
 .recipe-container-text {
@@ -111,7 +124,6 @@
   margin-bottom: 2rem;
   margin-right: 25%;
   margin-left: 25%;
-  z-index:2;
 }
 
 @keyframes zoomout {

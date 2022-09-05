@@ -19,93 +19,93 @@ const Homepage = function () {
           <div className='filters'>
             <form>
               <h3 className='filter-header'>Total Time</h3>
-              <div class="form-check">
-                <label class="form-check-label" for="totalTime">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="totalTime">
                   Less than 30 minutes
                 </label>
-                <input class="form-check-input" value="30" type="radio" name="totalTime" />
+                <input className="form-check-input" value="30" type="radio" name="totalTime" />
               </div>
-              <div class="form-check">
-                <label class="form-check-label" for="totalTime">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="totalTime">
                   Less than 1 hour
                 </label>
-                <input class="form-check-input" value="60" type="radio" name="totalTime" />
+                <input className="form-check-input" value="60" type="radio" name="totalTime" />
               </div>
-              <div class="form-check">
-                <label class="form-check-label" for="totalTime">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="totalTime">
                   Less than 2 hours
                 </label>
-                <input class="form-check-input" value="120" type="radio" name="totalTime" />
+                <input className="form-check-input" value="120" type="radio" name="totalTime" />
               </div>
               <hr />
 
               <h3 className='filter-header'>Max Calories</h3>
-              <div class="form-check">
-                <label class="form-check-label" for="maxCalories">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="maxCalories">
                   Less than 500
                 </label>
-                <input class="form-check-input" value="500" type="radio" name="maxCalories" />
+                <input className="form-check-input" value="500" type="radio" name="maxCalories" />
               </div>
-              <div class="form-check">
-                <label class="form-check-label" for="maxCalories">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="maxCalories">
                   Less than 1000
                 </label>
-                <input class="form-check-input" value="1000" type="radio" name="maxCalories" />
+                <input className="form-check-input" value="1000" type="radio" name="maxCalories" />
               </div>
-              <div class="form-check">
-                <label class="form-check-label" for="maxCalories">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="maxCalories">
                   Less than 2000
                 </label>
-                <input class="form-check-input" value="2000" type="radio" name="maxCalories" />
+                <input className="form-check-input" value="2000" type="radio" name="maxCalories" />
               </div>
               <hr />
 
               <h3 className='filter-header'>Diets</h3>
-              <div class="form-check">
-                <label class="form-check-label" for="diets">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="diets">
                   Gluten free
                 </label>
-                <input class="form-check-input" value="Gluten Free" type="radio" name="diets" />
+                <input className="form-check-input" value="Gluten Free" type="radio" name="diets" />
               </div>
-              <div class="form-check">
-                <label class="form-check-label" for="diets">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="diets">
                   Vegetarian
                 </label>
-                <input class="form-check-input" value="Vegetarian" type="radio" name="diets" />
+                <input className="form-check-input" value="Vegetarian" type="radio" name="diets" />
               </div>
-              <div class="form-check">
-                <label class="form-check-label" for="diets">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="diets">
                   Ketogenic
                 </label>
-                <input class="form-check-input" value="Ketogenic" type="radio" name="diets" />
+                <input className="form-check-input" value="Ketogenic" type="radio" name="diets" />
               </div>
               <hr />
 
               <h3 className='filter-header'>Rating</h3>
-              <div class="form-check">
-                <label class="form-check-label" for="rating">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="rating">
                   More than 4.5
                 </label>
-                <input class="form-check-input" value="4.5" type="radio" name="rating" />
+                <input className="form-check-input" value="4.5" type="radio" name="rating" />
               </div>
-              <div class="form-check">
-                <label class="form-check-label" for="rating">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="rating">
                   More than 4
                 </label>
-                <input class="form-check-input" value="4" type="radio" name="rating" />
+                <input className="form-check-input" value="4" type="radio" name="rating" />
               </div>
-              <div class="form-check">
-                <label class="form-check-label" for="rating">
+              <div className="form-check">
+                <label className="form-check-label" htmlFor="rating">
                   More than 3
                 </label>
-                <input class="form-check-input" value="3" type="radio" name="rating" />
+                <input className="form-check-input" value="3" type="radio" name="rating" />
               </div>
               <button className="btn btn-secondary filter-button" type="submit">Apply Filters</button>
             </form>
           </div>
 
           <div className='recipes'>
-            {arr.map(elem => <RecipeContainer />)}
+            {arr.map(elem => <RecipeContainer key={elem}/>)}
           </div>
         </div>
       </div>
