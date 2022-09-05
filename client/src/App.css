@@ -28,6 +28,65 @@
   color: #61dafb;
 }
 
+.recipe-container {
+  background-color: #495057;
+    width: 398px;
+    height: 393px;
+    color: white;
+}
+
+.recipe-container-image {
+  object-fit: cover;
+  object-position: center;
+  height: 320px;
+  width: 397px;
+}
+
+.recipe-container-text {
+  margin: 1rem;
+}
+
+.navbar {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar-brand {
+  margin-left:2rem;
+}
+
+.nav-link-active {
+  margin-right:2rem;
+}
+
+.zoomout-img {
+  width:100%;
+  z-index: 10;
+}
+
+.btn-secondary {
+  background-color: #495057;
+}
+
+.homepage-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.homepage-main {
+  margin-top: 3.5rem;
+}
+
+.search-bar {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-right: 25%;
+  margin-left: 25%;
+  z-index:2;
+}
+
 @keyframes zoomout {
   0% {
     -webkit-transform: scale(1.1);

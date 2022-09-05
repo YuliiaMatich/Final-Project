@@ -1,6 +1,9 @@
 import './App.css';
 import Navbar from './components/navbar';
 import Homepage from './components/homepage';
+import RecipeContainer from './components/recipecontainer';
+
+
 
 function App() {
   return (
