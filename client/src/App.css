@@ -28,11 +28,17 @@
   color: #61dafb;
 }
 
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .recipe-container {
   background-color: #495057;
     width: 398px;
     height: 393px;
     color: white;
+    margin: 2rem;
 }
 
 .recipe-container-image {
@@ -44,6 +50,27 @@
 
 .recipe-container-text {
   margin: 1rem;
+}
+
+.filter-header {
+  margin-top: 1rem;
+  text-align: justify;
+}
+
+.filters-recipes {
+  flex-direction: row;
+  display: flex;
+}
+
+.filters {
+  width: 30%;
+  display: flex;
+  margin: 3rem;
+  text-align: justify;
+}
+
+.filter-button {
+  margin-top: 1rem;
 }
 
 .navbar {
