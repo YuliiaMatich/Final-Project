@@ -1,19 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import RecipeContainer from './recipecontainer';
 import Loading from './loading';
 
-const Homepage = function ({randomRecipes}) {
+const Homepage = function ({randomRecipes, searchKeyword, setSearchKeyword, keywordRecipeSearch}) {
+  const [lastResult, setLastResult] = useState(null);
+  
+  const handleChange = function(event) {
+    setSearchKeyword(event.target.value);
+  };
+
+  const handleSubmit = function(event) {
+    event.preventDefault();
+    keywordRecipeSearch(searchKeyword);
+    setLastResult(searchKeyword);
+    setSearchKeyword('');
+  }
 
   return (
     <div className="homepage-main">
       <img className='zoomout-img' style={{ "WebkitAnimation": "zoomout 10s 1" }} src={require('../docs/homepagepic.jpg')} />
       <div className='homepage-body'>
         <div className='search-bar'>
-          <form className="d-flex" role="search">
-            <input className="form-control me-2" type="search" placeholder="Search for a recipe here" aria-label="Search" />
+          <form onSubmit={handleSubmit} className="d-flex" role="search">
+            <input onChange={handleChange} value={searchKeyword} className="form-control me-2" type="search" placeholder="Search for a recipe here" aria-label="Search" />
             <button className="btn btn-secondary" type="submit">Search</button>
           </form>
         </div>
+        <p>{lastResult?`Results by keyword '${lastResult}':`:''}</p>
         <div className='filters-recipes'>
           <div className='filters'>
             <form>
