@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home');
 const keywordRecipeSearch = require('./routes/keywordrecipessearch');
+const cuisineSearch = require('./routes/cuisinesearch');
+const mealTypeSearch = require('./routes/mealtypesearch');
 
 var app = express();
 
@@ -23,6 +25,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/home', homeRouter);
 app.use('/keywordsearch', keywordRecipeSearch);
-
+app.use('/cuisinesearch', cuisineSearch);
+app.use('/mealtypesearch', mealTypeSearch);
 
 module.exports = app;
