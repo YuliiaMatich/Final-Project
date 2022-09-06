@@ -1,17 +1,22 @@
 import React from 'react';
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, setLastResult, setCategoryPicture }) {
 
   const handleClickCuisine = function (event) {
     event.preventDefault()
-    setMenuSearchItem(event.target.innerText);
+    setMenuSearchItem(event.target.innerText);  
+    setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     cuisineSearch(event.target.innerText);
+    setLastResult(null);
+    
   }
 
   const handleClickMealType = function (event) {
     event.preventDefault()
     setMenuSearchItem(event.target.innerText);
+    setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     mealTypeSearch(event.target.innerText);
+    setLastResult(null);
   }
 
   return (
@@ -31,7 +36,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch }) {
                 Meal Type
               </a>
               <ul className="dropdown-menu">
-                <li><a onClick={handleClickMealType} className="dropdown-item" href="#">Main course</a></li>
+                <li><a onClick={handleClickMealType} className="dropdown-item" href="#">Main Course</a></li>
                 <li><a onClick={handleClickMealType} className="dropdown-item" href="#">Salad</a></li>
                 <li><a onClick={handleClickMealType} className="dropdown-item" href="#">Appetizer</a></li>
                 <li><a onClick={handleClickMealType} className="dropdown-item" href="#">Dessert</a></li>

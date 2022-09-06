@@ -8,6 +8,8 @@ function App() {
   const [randomRecipes, setRandomRecipes] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [menuSearchItem, setMenuSearchItem] = useState('');
+  const [lastResult, setLastResult] = useState(null);
+  const [categoryPicture, setCategoryPicture] = useState('/docs/homepagepic.jpg')
 
   useEffect(() => {
     axios.get("http://localhost:8080/home")
@@ -36,12 +38,17 @@ function App() {
       setMenuSearchItem={setMenuSearchItem}
       cuisineSearch={cuisineSearch}
       mealTypeSearch={mealTypeSearch}
+      setLastResult={setLastResult}
+      setCategoryPicture={setCategoryPicture}
       />
       <Homepage
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
         keywordRecipeSearch={keywordRecipeSearch}
         randomRecipes={randomRecipes}
+        lastResult={lastResult}
+        setLastResult={setLastResult}
+        categoryPicture={categoryPicture}
       />
     </div>
   );

@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import RecipeContainer from './recipecontainer';
 import Loading from './loading';
 
-const Homepage = function ({randomRecipes, searchKeyword, setSearchKeyword, keywordRecipeSearch}) {
-  const [lastResult, setLastResult] = useState(null);
+const Homepage = function ({randomRecipes, searchKeyword, setSearchKeyword, keywordRecipeSearch, lastResult, setLastResult, categoryPicture}) {
+  console.log(categoryPicture)
+  
   
   const handleChange = function(event) {
     setSearchKeyword(event.target.value);
@@ -18,7 +19,7 @@ const Homepage = function ({randomRecipes, searchKeyword, setSearchKeyword, keyw
 
   return (
     <div className="homepage-main">
-      <img className='zoomout-img' style={{ "WebkitAnimation": "zoomout 10s 1" }} src={require('../docs/homepagepic.jpg')} />
+      {<img className='zoomout-img' style={{ "WebkitAnimation": "zoomout 10s 1" }} src={categoryPicture} />}
       <div className='homepage-body'>
         <div className='search-bar'>
           <form onSubmit={handleSubmit} className="d-flex" role="search">
