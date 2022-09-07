@@ -11,6 +11,7 @@ const homeRouter = require('./routes/home');
 const keywordRecipeSearch = require('./routes/keywordrecipessearch');
 const cuisineSearch = require('./routes/cuisinesearch');
 const mealTypeSearch = require('./routes/mealtypesearch');
+const filterSearch = require('./routes/filtersearch');
 
 var app = express();
 
@@ -27,5 +28,6 @@ app.use('/home', homeRouter);
 app.use('/keywordsearch', keywordRecipeSearch);
 app.use('/cuisinesearch', cuisineSearch);
 app.use('/mealtypesearch', mealTypeSearch);
+app.use('/filtersearch', filterSearch);
 
 module.exports = app;

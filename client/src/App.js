@@ -9,7 +9,8 @@ function App() {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [menuSearchItem, setMenuSearchItem] = useState('');
   const [lastResult, setLastResult] = useState(null);
-  const [categoryPicture, setCategoryPicture] = useState('/docs/homepagepic.jpg')
+  const [categoryPicture, setCategoryPicture] = useState('/docs/homepagepic.jpg');
+  const [filterObject, setFilterObject] = useState({});
 
   useEffect(() => {
     axios.get("http://localhost:8080/home")
@@ -28,6 +29,11 @@ function App() {
 
   const mealTypeSearch = function(keyword) {
     return axios.get(`http://localhost:8080/mealtypesearch/${keyword}`)
+    .then(res => setRandomRecipes(res.data))
+  }
+  
+  const filterSearch = function() {
+    return axios.post(`http://localhost:8080/filtersearch`, filterObject)
     .then(res => setRandomRecipes(res.data))
   }
 
@@ -49,6 +55,10 @@ function App() {
         lastResult={lastResult}
         setLastResult={setLastResult}
         categoryPicture={categoryPicture}
+        setCategoryPicture={setCategoryPicture}
+        setFilterObject={setFilterObject}
+        filterSearch={filterSearch}
+        filterObject={filterObject}
       />
     </div>
   );
