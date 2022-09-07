@@ -27,9 +27,8 @@ const fetchFood = function(searchParameter) {
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  fetchFood("pasta").then(response => res.json(response));
+  // fetchFood("pasta").then(response => res.json(response));
 })
-
 
 module.exports = router;
 

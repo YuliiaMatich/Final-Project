@@ -1,22 +1,48 @@
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
+const sassMiddleware = require("./lib/sass-middleware");
+const cors = require('cors');
 var logger = require('morgan');
+
+// PG database client/connection setup
+const { Pool } = require("pg");
+const dbParams = require("./lib/db.js");
+const db = new Pool(dbParams);
+db.connect();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home');
+const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
 
 var app = express();
-
+app.use(cors());
+app.use(cookieSession({
+  name:'session',
+  keys:['yuliia', 'david']
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(
+  "/styles",
+  sassMiddleware({
+    source: __dirname + "/styles",
+    destination: __dirname + "/public/styles",
+    isSass: false, // false => scss, true => sass
+  })
+);
+app.use(bodyParser.json());
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/home', homeRouter)
+app.use('/users', usersRouter(db));
+app.use('/home', homeRouter);
+// app.use('/login', (req, res)=> res.send("login"), loginRouter);
+app.use('/register', registerRouter(db));
 
 module.exports = app;

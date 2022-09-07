@@ -1,25 +1,24 @@
-import logo from './logo.svg';
+// import { useState } from 'react';
+import { useContext } from 'react';
+import Info from './components/Info';
+import Login from './components/Login';
+import Register from './components/Register';
+import { authContext } from './providers/AuthProvider';
+// import CounterProvider from 'providers/CounterProvider';
 import './App.css';
+import React from 'react';
 
-function App() {
+export default function App() {
+  const { auth } = useContext(authContext);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <CounterProvider> */}
+        <h1>My App</h1>
+        {/* {!auth && <Register />} */}
+        {!auth && <Login />}
+        {auth && <Info />}
+      {/* </CounterProvider> */}
     </div>
   );
 }
-
-export default App;
