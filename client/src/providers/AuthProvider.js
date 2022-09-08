@@ -8,8 +8,13 @@ export default function AuthProvider(props) {
 
   // Perform login process for the user & save authID, etc
   const login = function(user) {
+  //   if (user.email === "" || user.password === ""){
+  //     // return "Please fill login form"
+  //     setAuth(false);
+  // } else {
     setAuth(true);
     setUser({ ...user });
+  // }
   };
 
   const logout = function() {

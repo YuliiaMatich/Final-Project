@@ -11,7 +11,7 @@ export default function Login({ open, setOpen }) {
     const [password, setPassword] = useState('')
     const { login } = useContext(authContext);
     const handleClose = () => setOpen(false);
-
+    const [error, setError] = useState(false);
     // change useState with a value change whenever input data change
     const onEmailHandler = (e) => {
         setEmail(e.target.value)
@@ -22,6 +22,9 @@ export default function Login({ open, setOpen }) {
     }
     const onSubmit = function (e) {
         e.preventDefault();
+        if (email.length === 0 || password.length === 0) {
+            return setError("Please fill login form")
+        }
         axios.post('/users/login', { email, password })
             .then((response) => {
                 console.log(response)
@@ -31,7 +34,7 @@ export default function Login({ open, setOpen }) {
             })
             .catch((error) => {
                 console.log(error.response);
-                alert(error.response.data)
+                setError(error.response.data)
             });
     };
 
@@ -45,9 +48,6 @@ export default function Login({ open, setOpen }) {
             >
                 <form onSubmit={onSubmit}>
                     <Box align="right">
-                        <div id="modal-modal-title" variant="h6" component="h2">
-                            Login
-                        </div>
                         <div>
                             <input type='email' name='email' placeholder="Email" size="50" value={email} onChange={onEmailHandler} />
                         </div>
@@ -56,7 +56,7 @@ export default function Login({ open, setOpen }) {
                             <input type='password' name='password' placeholder="Password" size="50" value={password} onChange={onPasswordHandler} />
                         </div>
                         <div>
-                            <button type='submit'>Login</button>
+                            <button type='submit' style={{ color: "black" }}> LOGIN {error} </button>
                         </div>
                     </Box>
                 </form>

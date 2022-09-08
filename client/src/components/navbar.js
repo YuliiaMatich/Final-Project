@@ -75,9 +75,11 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
             <li className="nav-item">
               <a className="nav-link active" href="#">Recipe With My Ingredients</a>
             </li>
+            {auth ?
             <li className="nav-item">
               <a className="nav-link active" href="#">Favorites</a>
             </li>
+            :<></>}
           </ul>
         </div>
       </div>

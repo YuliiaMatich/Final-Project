@@ -43,6 +43,8 @@ module.exports = (db) => {
         if (!response) {
           addUser(user)
             .then(user => {
+              db.query("select * from users")
+              .then (data => console.log(data.rows))
               if (!user) {
                 return res.send({ error: "error" });
               }

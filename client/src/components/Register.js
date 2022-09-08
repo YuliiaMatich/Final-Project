@@ -12,6 +12,7 @@ export default function Register({ open, setOpen }) {
   const [password, setPassword] = useState('')
   const { register } = useContext(authContext);
   const handleClose = () => setOpen(false);
+  const [error, setError] = useState(false);
 
   // change useState with a value change whenever input data change
   const onNameHandler = (e) => {
@@ -26,14 +27,16 @@ export default function Register({ open, setOpen }) {
   }
   const onSubmit = function (e) {
     e.preventDefault();
-
+    if (username.length === 0 || email.length === 0 || password.length === 0) {
+      return setError("Please fill registration form")
+    }
     axios.post('/register', { username, email, password })
       .then((response) => {
         const user = response.data
         register(user);
       })
       .catch((error) => {
-        alert(error.response.data)
+        setError(error.response.data)
       });
   };
 
@@ -48,9 +51,6 @@ export default function Register({ open, setOpen }) {
       >
         <form onSubmit={onSubmit}>
           <Box align="right">
-            <div id="modal-modal-title" variant="h6" component="h2">
-              Register
-            </div>
             <div>
               <label></label>
               <input type='username' name='username' placeholder="Username" size="50" value={username} onChange={onNameHandler} />
@@ -64,7 +64,7 @@ export default function Register({ open, setOpen }) {
               <input type='password' name='password' placeholder="Password" size="50" value={password} onChange={onPasswordHandler} />
             </div>
             <div>
-              <button type='submit'>Register</button>
+              <button type='submit' style={{ color: "black" }}>Register {error} </button>
             </div>
           </Box>
         </form>
