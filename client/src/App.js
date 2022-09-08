@@ -17,6 +17,9 @@ export default function App() {
   const [islogin, setIslogin] = useState(false);
   const [isregister, setIsregister] = useState(false);
   const { auth } = useContext(authContext);
+  const [lastResult, setLastResult] = useState(null);
+  const [categoryPicture, setCategoryPicture] = useState('/docs/homepagepic.jpg');
+  const [filterObject, setFilterObject] = useState({});
 
   useEffect(() => {
     axios.get("/home")
@@ -24,7 +27,7 @@ export default function App() {
   }, []);
 
   const keywordRecipeSearch = function (keyword) {
-    return axios.get(`/${keyword}`)
+    return axios.get(`/keywordrecipessearch/${keyword}`)
       .then(res => setRandomRecipes(res.data))
   }
 
@@ -36,6 +39,11 @@ export default function App() {
   const mealTypeSearch = function (keyword) {
     return axios.get(`/mealtypesearch/${keyword}`)
       .then(res => setRandomRecipes(res.data))
+  }
+  
+  const filterSearch = function() {
+    return axios.post(`/filtersearch`, filterObject)
+    .then(res => setRandomRecipes(res.data))
   }
 
   return (
@@ -49,6 +57,8 @@ export default function App() {
         mealTypeSearch={mealTypeSearch}
         islogin={setIslogin}
         isregister={setIsregister}
+        setLastResult={setLastResult}
+        setCategoryPicture={setCategoryPicture}
         />
       { auth ? <Info /> : islogin ? <Login open = {islogin} setOpen = {setIslogin}/> : <Register open = {isregister} setOpen = {setIsregister}/> }
       <Homepage
@@ -56,6 +66,13 @@ export default function App() {
         setSearchKeyword={setSearchKeyword}
         keywordRecipeSearch={keywordRecipeSearch}
         randomRecipes={randomRecipes}
+        lastResult={lastResult}
+        setLastResult={setLastResult}
+        categoryPicture={categoryPicture}
+        setCategoryPicture={setCategoryPicture}
+        setFilterObject={setFilterObject}
+        filterSearch={filterSearch}
+        filterObject={filterObject}
       />
       
       {/* </CounterProvider> */}

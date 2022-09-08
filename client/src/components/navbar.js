@@ -3,19 +3,25 @@ import { useContext } from 'react';
 import { authContext } from '../providers/AuthProvider';
 import Info from './Info';
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister,setLastResult, setCategoryPicture  }) {
   const { auth } = useContext(authContext);
+
 
   const handleClickCuisine = function (event) {
     event.preventDefault()
-    setMenuSearchItem(event.target.innerText);
+    setMenuSearchItem(event.target.innerText);  
+    setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     cuisineSearch(event.target.innerText);
+    setLastResult(null);
+    
   }
 
   const handleClickMealType = function (event) {
     event.preventDefault()
     setMenuSearchItem(event.target.innerText);
+    setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     mealTypeSearch(event.target.innerText);
+    setLastResult(null);
   }
 
   const handleClickLogin = function (event) {
@@ -47,7 +53,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
                 Meal Type
               </a>
               <ul className="dropdown-menu">
-                <li><a onClick={handleClickMealType} className="dropdown-item" href="#">Main course</a></li>
+                <li><a onClick={handleClickMealType} className="dropdown-item" href="#">Main Course</a></li>
                 <li><a onClick={handleClickMealType} className="dropdown-item" href="#">Salad</a></li>
                 <li><a onClick={handleClickMealType} className="dropdown-item" href="#">Appetizer</a></li>
                 <li><a onClick={handleClickMealType} className="dropdown-item" href="#">Dessert</a></li>

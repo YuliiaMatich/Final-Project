@@ -126,6 +126,11 @@
   margin-left: 25%;
 }
 
+.search-alert {
+  margin-right:40%;
+  margin-left:40%
+}
+
 @keyframes zoomout {
   0% {
     -webkit-transform: scale(1.1);

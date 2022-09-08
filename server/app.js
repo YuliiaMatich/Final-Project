@@ -21,6 +21,7 @@ const registerRouter = require('./routes/register');
 const keywordRecipeSearch = require('./routes/keywordrecipessearch');
 const cuisineSearch = require('./routes/cuisinesearch');
 const mealTypeSearch = require('./routes/mealtypesearch');
+const filterSearch = require('./routes/filtersearch');
 
 var app = express();
 app.use(cors())
@@ -47,8 +48,9 @@ app.use('/users', usersRouter(db));
 app.use('/home', homeRouter);
 app.use('/register', registerRouter(db));
 
-app.use('/keywordsearch', keywordRecipeSearch);
+app.use('/keywordrecipessearch', keywordRecipeSearch);
 app.use('/cuisinesearch', cuisineSearch);
 app.use('/mealtypesearch', mealTypeSearch);
+app.use('/filtersearch', filterSearch);
 
 module.exports = app;
