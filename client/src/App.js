@@ -1,6 +1,7 @@
 import './App.css';
 import Navbar from './components/navbar';
 import Homepage from './components/homepage';
+import Recipe from './components/recipe';
 import axios from 'axios';
 import {useState, useEffect} from 'react';
 
@@ -60,6 +61,9 @@ function App() {
         filterSearch={filterSearch}
         filterObject={filterObject}
       />
+    <Recipe
+    
+    />
     </div>
   );
 }
