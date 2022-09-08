@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, setLastResult, setCategoryPicture }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, setLastResult, setCategoryPicture, setSingleRecipe }) {
 
   const handleClickCuisine = function (event) {
     event.preventDefault()
@@ -8,7 +8,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, set
     setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     cuisineSearch(event.target.innerText);
     setLastResult(null);
-    
+    setSingleRecipe(null);
   }
 
   const handleClickMealType = function (event) {
@@ -17,6 +17,12 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, set
     setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     mealTypeSearch(event.target.innerText);
     setLastResult(null);
+    setSingleRecipe(null)
+  }
+
+  const handleHomeClick = function(event) {
+    event.preventDefault();
+    setSingleRecipe(null);
   }
 
   return (
@@ -29,7 +35,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, set
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Home</a>
+              <a onClick={handleHomeClick} className="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li className="nav-item dropdown">
               <a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

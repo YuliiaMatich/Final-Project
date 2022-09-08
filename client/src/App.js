@@ -12,6 +12,7 @@ function App() {
   const [lastResult, setLastResult] = useState(null);
   const [categoryPicture, setCategoryPicture] = useState('/docs/homepagepic.jpg');
   const [filterObject, setFilterObject] = useState({});
+  const [singleRecipe, setSingleRecipe] = useState(null);
 
   useEffect(() => {
     axios.get("http://localhost:8080/home")
@@ -38,6 +39,11 @@ function App() {
     .then(res => setRandomRecipes(res.data))
   }
 
+  const getSingleRecipe = function(recipeId) {
+    return axios.get(`http://localhost:8080/singlerecipesearch/${recipeId}`)
+    .then(res => setSingleRecipe(res.data))
+  }
+
   return (
     <div className="App">
       <Navbar 
@@ -47,8 +53,9 @@ function App() {
       mealTypeSearch={mealTypeSearch}
       setLastResult={setLastResult}
       setCategoryPicture={setCategoryPicture}
+      setSingleRecipe={setSingleRecipe}
       />
-      <Homepage
+      {!singleRecipe && <Homepage
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
         keywordRecipeSearch={keywordRecipeSearch}
@@ -60,10 +67,12 @@ function App() {
         setFilterObject={setFilterObject}
         filterSearch={filterSearch}
         filterObject={filterObject}
-      />
-    <Recipe
-    
-    />
+        getSingleRecipe={getSingleRecipe}
+      />}
+    {singleRecipe && <Recipe
+      singleRecipe={singleRecipe}
+      setSingleRecipe={setSingleRecipe}
+    />}
     </div>
   );
 }

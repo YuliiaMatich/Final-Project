@@ -178,7 +178,7 @@
   flex-direction: column;
   width: 50%;
   padding: 3rem;
-  box-shadow: 5px 5px 5px lightgrey;
+  box-shadow: 5px 0px 5px lightgrey;
 }
 
 .instructions {
@@ -186,6 +186,20 @@
   flex-direction: column;
   width: 50%;
   padding: 3rem;
+  box-shadow: 5px 0px 5px lightgrey;
+}
+
+.favorite {
+  padding-right: 0.5rem;
+}
+
+.back-button-field {
+    justify-content: end;
+}
+
+.back-button {
+  width: 8rem;
+    margin-right: 2rem;
 }
 
 @keyframes zoomout {

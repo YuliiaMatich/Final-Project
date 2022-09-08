@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import RecipeContainer from './recipecontainer';
 import Loading from './loading';
 
-const Homepage = function ({ randomRecipes, searchKeyword, setSearchKeyword, keywordRecipeSearch, lastResult, setLastResult, categoryPicture, setCategoryPicture, setFilterObject, filterSearch, filterObject }) {
+const Homepage = function ({ randomRecipes, searchKeyword, setSearchKeyword, keywordRecipeSearch, lastResult, setLastResult, categoryPicture, setCategoryPicture, setFilterObject, filterSearch, filterObject, getSingleRecipe }) {
   const [emptyFieldAlert, setEmptyFieldAlert] = useState(null);
   const [emptyFilterAlert, setEmptyFilterAlert] = useState(null);
 
@@ -150,7 +150,9 @@ const Homepage = function ({ randomRecipes, searchKeyword, setSearchKeyword, key
           <div className='recipes'>
             {randomRecipes ? randomRecipes.map(recipe => <RecipeContainer
               recipeTitle={recipe.title}
+              recipeId={recipe.id}
               recipeImg={recipe.recipeImg}
+              getSingleRecipe={getSingleRecipe}
               key={recipe.id} />) : <Loading />}
           </div>
         </div>
