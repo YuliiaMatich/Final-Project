@@ -7,18 +7,11 @@ export default function Info() {
 
   // Show user Info
   return (
-    <div>
-      <p className="UserInfo">
-        <div>You are logged in</div>
-        <div>Email: {user.email}</div>
-        {/* <div>Name: {user.name}</div>
-        <div>UserId: {user.id}</div> */}
+      <p className="UserInfo mb-auto">
+        <span>Hello, {user.email} 
+        <button type="button" onClick={logout}>Logout</button> 
+        </span>
+        {/* <Counter /> */}
       </p>
-      <p>
-        <button type="button" onClick={logout}>Logout</button>
-      </p>
-
-      {/* <Counter /> */}
-    </div>
   );
 };

@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const sassMiddleware = require("./lib/sass-middleware");
 const cors = require('cors');
 var logger = require('morgan');
+const axios = require('axios');
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -16,11 +17,13 @@ db.connect();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home');
-const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
+const keywordRecipeSearch = require('./routes/keywordrecipessearch');
+const cuisineSearch = require('./routes/cuisinesearch');
+const mealTypeSearch = require('./routes/mealtypesearch');
 
 var app = express();
-app.use(cors());
+app.use(cors())
 app.use(cookieSession({
   name:'session',
   keys:['yuliia', 'david']
@@ -42,7 +45,10 @@ app.use(bodyParser.json());
 app.use('/', indexRouter);
 app.use('/users', usersRouter(db));
 app.use('/home', homeRouter);
-// app.use('/login', (req, res)=> res.send("login"), loginRouter);
 app.use('/register', registerRouter(db));
+
+app.use('/keywordsearch', keywordRecipeSearch);
+app.use('/cuisinesearch', cuisineSearch);
+app.use('/mealtypesearch', mealTypeSearch);
 
 module.exports = app;

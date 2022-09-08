@@ -1,11 +1,13 @@
 const router = require('express').Router();
 
 module.exports = (db) => {
-  
+
 router.get('/', (req, res) => {
   res.send("user page")
 })
-
+router.get('/login', (req, res) => {
+  res.send("login page")
+})
 const getUserWithEmail = function (email) {
   return db.
     query(`SELECT * from users
@@ -30,11 +32,9 @@ const login = function(email, password) {
 
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
-  console.log("+++++", req.body);
   login(email, password)
     .then(user => {
       if (!user) {
-        // res.status(400).send({error: "Invalid email or password"});
         res.status(400).send("Invalid email or password"); 
         return;
       }
@@ -46,9 +46,5 @@ router.post('/login', (req, res) => {
 });
 });
 
-// router.post('/logout', (req, res) => {
-//   req.session = null;
-//   // res.redirect('/login');
-// })
 return router;
 }

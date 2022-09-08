@@ -9,7 +9,6 @@ export default function AuthProvider(props) {
   // Perform login process for the user & save authID, etc
   const login = function(user) {
     setAuth(true);
-    // const id = "1234-1234-1234";  // Some random userId
     setUser({ ...user });
   };
 
@@ -20,7 +19,6 @@ export default function AuthProvider(props) {
 
   const register = function(user) {
     setAuth(true);
-    // const id = "1234-1234-1234";  // Some random userId
     setUser({ ...user });
   };
 

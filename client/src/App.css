@@ -28,11 +28,110 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
 }
+
+.recipe-container {
+  background-color: #495057;
+    width: 398px;
+    height: 435px;
+    color: white;
+    margin: 2rem;
+    box-shadow: 5px 5px 5px lightgrey;
+}
+
+.recipe-container:hover {
+  cursor: pointer;
+  box-shadow: 8px 8px 5px darkgrey;
+  border: 0px groove #495057;
+  background-color: white;
+  color: #495057;
+  
+}
+
+
+.recipe-container-image {
+  object-fit: cover;
+  object-position: center;
+  height: 320px;
+  width: 398px;
+  
+  
+}
+
+.recipe-container-text {
+  margin: 1rem;
+}
+
+.filter-header {
+  margin-top: 1rem;
+  text-align: justify;
+}
+
+.filters-recipes {
+  flex-direction: row;
+  display: flex;
+}
+
+.filters {
+  width: 30%;
+  display: flex;
+  margin: 3rem;
+  text-align: justify;
+}
+
+.filter-button {
+  margin-top: 1rem;
+}
+
+.navbar {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar-brand {
+  margin-left:2rem;
+}
+
+.nav-link-active {
+  margin-right:2rem;
+}
+
+.zoomout-img {
+  width:100%;
+  z-index: 10;
+}
+
+.btn-secondary {
+  background-color: #495057;
+}
+
+.homepage-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.homepage-main {
+  margin-top: 3.5rem;
+}
+
+.search-bar {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-right: 25%;
+  margin-left: 25%;
+}
+
+@keyframes zoomout {
+  0% {
+    -webkit-transform: scale(1.1);
+}
+100% {
+    -webkit-transform: scale(1);
+}
+}
+

@@ -6,33 +6,36 @@ require('dotenv').config();
 const token = process.env.API_KEY;
 
 const apiCall = axios.create({
-  baseURL: 'https://api.spoonacular.com/recipes/random'
+  baseURL: 'https://api.spoonacular.com/recipes/complexSearch'
 });
 
-const fetchFood = function(limitNumber) {
+const fetchFood = function(limitNumber, keyword) {
   return apiCall.get('/', {
     headers: {
       "Content-Type": "application/json"
     },
     params: {
       apiKey: token,
+      query: keyword,
       number: limitNumber
     }
   })
   .then(response => {
-    let randomRecipesData = [];
-    for (let recipe of response.data.recipes) {
+    let keywordRecipeSearch = [];
+    for (let recipe of response.data.results) {
       let recipeData = {id: recipe.id, title: recipe.title, recipeImg: recipe.image};
-      randomRecipesData.push(recipeData);
+      keywordRecipeSearch.push(recipeData);
     }
-    return randomRecipesData
+    return keywordRecipeSearch
   })
 };
 
 /* GET home page. */
-router.get('/', (req, res) => {
-  fetchFood(6).then(response => res.json(response));
+router.get('/:keyword', (req, res) => {
+  const keyword = req.params.keyword;
+  fetchFood(6, keyword).then(response => res.json(response));
 })
+
 
 module.exports = router;
 
