@@ -1,6 +1,7 @@
 import './App.css';
 import Navbar from './components/navbar';
 import Homepage from './components/homepage';
+import Recipe from './components/recipe';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useContext } from 'react';
@@ -20,6 +21,7 @@ export default function App() {
   const [lastResult, setLastResult] = useState(null);
   const [categoryPicture, setCategoryPicture] = useState('/docs/homepagepic.jpg');
   const [filterObject, setFilterObject] = useState({});
+  const [singleRecipe, setSingleRecipe] = useState(null);
 
   useEffect(() => {
     axios.get("/home")
@@ -46,6 +48,11 @@ export default function App() {
     .then(res => setRandomRecipes(res.data))
   }
 
+  const getSingleRecipe = function(recipeId) {
+    return axios.get(`http://localhost:8080/singlerecipesearch/${recipeId}`)
+    .then(res => setSingleRecipe(res.data))
+  }
+
   return (
 
     <div className="App">
@@ -60,8 +67,13 @@ export default function App() {
         setLastResult={setLastResult}
         setCategoryPicture={setCategoryPicture}
         />
-      { auth ? <Info /> : islogin ? <Login open = {islogin} setOpen = {setIslogin}/> : <Register open = {isregister} setOpen = {setIsregister}/> }
-      <Homepage
+      { auth ? <Info /> : islogin ? <Login 
+      open = {islogin} 
+      setOpen = {setIslogin}/> 
+      : <Register 
+      open = {isregister} 
+      setOpen = {setIsregister}/> }
+      {!singleRecipe && <Homepage
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
         keywordRecipeSearch={keywordRecipeSearch}
@@ -73,9 +85,12 @@ export default function App() {
         setFilterObject={setFilterObject}
         filterSearch={filterSearch}
         filterObject={filterObject}
-      />
-      
-      {/* </CounterProvider> */}
+        getSingleRecipe={getSingleRecipe}
+      />}
+    {singleRecipe && <Recipe
+      singleRecipe={singleRecipe}
+      setSingleRecipe={setSingleRecipe}
+    />}
     </div>
  
   );

@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { authContext } from '../providers/AuthProvider';
 import Info from './Info';
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister,setLastResult, setCategoryPicture  }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister,setLastResult, setCategoryPicture, setSingleRecipe  }) {
   const { auth } = useContext(authContext);
 
 
@@ -13,7 +13,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
     setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     cuisineSearch(event.target.innerText);
     setLastResult(null);
-    
+    setSingleRecipe(null);
   }
 
   const handleClickMealType = function (event) {
@@ -22,6 +22,12 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
     setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     mealTypeSearch(event.target.innerText);
     setLastResult(null);
+    setSingleRecipe(null)
+  }
+
+  const handleHomeClick = function(event) {
+    event.preventDefault();
+    setSingleRecipe(null);
   }
 
   const handleClickLogin = function (event) {
@@ -46,7 +52,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav" >
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Home</a>
+              <a onClick={handleHomeClick} className="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li className="nav-item dropdown">
               <a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
