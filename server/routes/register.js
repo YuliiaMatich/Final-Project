@@ -7,7 +7,6 @@ module.exports = (db) => {
       query(`SELECT * from users
       WHERE email = $1;`, [email])
       .then(res => {
-        console.log("^^^", res.rows);
         if (res.rows.length === 0) {
           return false
         }
