@@ -28,6 +28,11 @@ export default function App() {
       .then(res => setRandomRecipes(res.data))
   }, []);
 
+  const homeButtonClick = function () {
+   return axios.get("/home")
+    .then(res => setRandomRecipes(res.data))
+  }
+
   const keywordRecipeSearch = function (keyword) {
     return axios.get(`/keywordrecipessearch/${keyword}`)
       .then(res => setRandomRecipes(res.data))
@@ -68,6 +73,7 @@ export default function App() {
         setCategoryPicture={setCategoryPicture}
         setSingleRecipe={setSingleRecipe}
         getSingleRecipe={getSingleRecipe}
+        homeButtonClick={homeButtonClick}
         />
       { auth ? <Info /> : islogin ? <Login 
       open = {islogin} 

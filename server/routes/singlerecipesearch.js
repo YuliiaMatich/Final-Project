@@ -32,12 +32,22 @@ const fetchFood = function(recipeId) {
       ingredients: [],
       steps: []
     };
-  for (let ingredient of response.extendedIngredients) {
+    if (response.instructions === null) {
+      recipeData.steps.push('Instruction Unavailable');
+    } else {
+      for (let stepObj of response.analyzedInstructions[0].steps) {
+        recipeData.steps.push(stepObj.step);
+      };
+    }
+
+    if (!response.extendedIngredients) {
+      recipeData.ingredients.push('Ingredients Unavailable');
+    } else {
+      for (let ingredient of response.extendedIngredients) {
     recipeData.ingredients.push(ingredient.original);
+    }
   };
-  for (let stepObj of response.analyzedInstructions[0].steps) {
-    recipeData.steps.push(stepObj.step);
-  };
+  
     return recipeData;
   })
 };

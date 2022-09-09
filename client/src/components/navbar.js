@@ -4,7 +4,7 @@ import { authContext } from '../providers/AuthProvider';
 import Info from './Info';
 import axios from "axios";
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe, homeButtonClick }) {
   const { auth } = useContext(authContext);
   const [favorites, setFavorites] = useState([]);
 
@@ -28,7 +28,10 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
 
   const handleHomeClick = function (event) {
     event.preventDefault();
-    setSingleRecipe(null);
+    homeButtonClick();
+    setSingleRecipe(null); 
+    setCategoryPicture('/docs/homepagepic.jpg')
+    
   }
 
   const handleClickLogin = function (event) {
