@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { authContext } from '../providers/AuthProvider';
 import Info from './Info';
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister,setLastResult, setCategoryPicture, setSingleRecipe  }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister,setLastResult, setCategoryPicture, setSingleRecipe, homeButtonClick  }) {
   const { auth } = useContext(authContext);
 
 
@@ -27,7 +27,10 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
 
   const handleHomeClick = function(event) {
     event.preventDefault();
-    setSingleRecipe(null);
+    homeButtonClick();
+    setSingleRecipe(null); 
+    setCategoryPicture('/docs/homepagepic.jpg')
+    
   }
 
   const handleClickLogin = function (event) {
