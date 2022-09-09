@@ -1,15 +1,16 @@
 import React from 'react';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { authContext } from '../providers/AuthProvider';
 import Info from './Info';
+import axios from "axios";
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister,setLastResult, setCategoryPicture, setSingleRecipe  }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe }) {
   const { auth } = useContext(authContext);
-
+  const [favorites, setFavorites] = useState([]);
 
   const handleClickCuisine = function (event) {
     event.preventDefault()
-    setMenuSearchItem(event.target.innerText);  
+    setMenuSearchItem(event.target.innerText);
     setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     cuisineSearch(event.target.innerText);
     setLastResult(null);
@@ -25,7 +26,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
     setSingleRecipe(null)
   }
 
-  const handleHomeClick = function(event) {
+  const handleHomeClick = function (event) {
     event.preventDefault();
     setSingleRecipe(null);
   }
@@ -42,6 +43,20 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
     isregister(true)
   }
 
+  const handleClickFavorite = function (event) {
+    event.preventDefault()
+
+    axios.get("/favorites/list")
+      .then((res) => {
+        setFavorites(res.data.favorites)
+      })
+      .catch((error) => {
+      });
+  };
+
+  const selectFavorite = function (recipe) {
+    getSingleRecipe(recipe.ext_recipe_id)
+  }
   return (
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid w-75">
@@ -82,23 +97,31 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
               <a className="nav-link active" href="#">Recipe With My Ingredients</a>
             </li>
             {auth ?
-            <li className="nav-item">
-              <a className="nav-link active" href="#">Favorites</a>
-            </li>
-            :<></>}
+              <>
+                {/* <li className="nav-item dropdown" > */}
+                <li className="nav-item dropdown" onClick={handleClickFavorite}>
+                  <a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Favorites</a>
+                  <ul className="dropdown-menu">
+                    {favorites.map(favorite => <li key={favorite.id}>
+                      <a href="#" onClick={() => selectFavorite(favorite)}> {favorite.ext_recipe_title} </a>
+                    </li>)}
+                  </ul>
+                </li>
+              </>
+              : <></>}
           </ul>
         </div>
       </div>
       <ul className="navbar-nav">
-        {auth ? <li><Info/></li> : <><li>
+        {auth ? <li><Info /></li> : <><li>
           <a onClick={handleClickLogin} className="nav-link active" href="#">Login</a>
         </li>
-        <li >
-          <a onClick={handleClickRegister} className="nav-link active nav-link-active" href="#">Registration</a>
-        </li>
+          <li >
+            <a onClick={handleClickRegister} className="nav-link active nav-link-active" href="#">Registration</a>
+          </li>
         </>
-         }
-        
+        }
+
       </ul>
     </nav>
   );

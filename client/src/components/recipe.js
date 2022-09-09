@@ -1,11 +1,27 @@
 import React from "react";
+import axios from "axios";
+import { useContext } from 'react';
+import { authContext } from '../providers/AuthProvider';
 
-const Recipe = function ({singleRecipe, setSingleRecipe}) {
-
+const Recipe = function ({ singleRecipe, setSingleRecipe }) {
+  const { auth } = useContext(authContext);
   const handleClick = function (event) {
     event.preventDefault();
     setSingleRecipe(null);
   }
+  const onCheck = function (e) {
+    e.preventDefault();
+    axios.post('/favorites', {
+      ext_recipe_id: singleRecipe.id,
+      ext_recipe_title: singleRecipe.title
+    })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
   return (
     <div className="single-recipe-page">
       <div className="recipe-title-photo">
@@ -17,10 +33,12 @@ const Recipe = function ({singleRecipe, setSingleRecipe}) {
         <h5>Servings: {singleRecipe.servings}</h5>
         <h5>Cuisine: {singleRecipe.cuisine}</h5>
         <h5>Dish Type: {singleRecipe.dishType}</h5>
-        <h5><form>
-          <label for="favorite" className="favorite"> Mark as Favorite: </label>
-          <input type="checkbox" id="favorite" name="favorite" value="true" />
-        </form></h5>
+        {auth ?
+          <h5><form>
+            <label for="favorite" className="favorite"> Mark as Favorite: </label>
+            <input onChange={onCheck} type="checkbox" id="favorite" name="favorite" value="true" />
+          </form></h5>
+          : <></>}
       </div>
       <div className="ingredients-instructions">
         <div className="ingredients">
@@ -33,7 +51,7 @@ const Recipe = function ({singleRecipe, setSingleRecipe}) {
         </div>
       </div>
       <div className="recipe-features back-button-field">
-      <button type="button" className="btn btn-secondary back-button" onClick={handleClick}>Back</button>
+        <button type="button" className="btn btn-secondary back-button" onClick={handleClick}>Back</button>
       </div>
     </div>
   )

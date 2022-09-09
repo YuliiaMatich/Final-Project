@@ -49,7 +49,7 @@ export default function App() {
   }
 
   const getSingleRecipe = function(recipeId) {
-    return axios.get(`http://localhost:8080/singlerecipesearch/${recipeId}`)
+    return axios.get(`/singlerecipesearch/${recipeId}`)
     .then(res => setSingleRecipe(res.data))
   }
 
@@ -66,6 +66,8 @@ export default function App() {
         isregister={setIsregister}
         setLastResult={setLastResult}
         setCategoryPicture={setCategoryPicture}
+        setSingleRecipe={setSingleRecipe}
+        getSingleRecipe={getSingleRecipe}
         />
       { auth ? <Info /> : islogin ? <Login 
       open = {islogin} 

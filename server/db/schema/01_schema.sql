@@ -28,7 +28,8 @@ CREATE TABLE recipes (
 CREATE TABLE favorites (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) NOT NULL,
-  favorite BOOLEAN NOT NULL DEFAULT FALSE
+  ext_recipe_id INTEGER NOT NULL,
+  ext_recipe_title VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE ratings_reivews (
