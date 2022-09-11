@@ -4,7 +4,7 @@ import { authContext } from '../providers/AuthProvider';
 import Info from './Info';
 import axios from "axios";
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe, homeButtonClick }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe, homeButtonClick, setMyIngredient, setOpenMyIngredient }) {
   const { auth } = useContext(authContext);
   const [favorites, setFavorites] = useState([]);
 
@@ -29,9 +29,17 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
   const handleHomeClick = function (event) {
     event.preventDefault();
     homeButtonClick();
-    setSingleRecipe(null); 
+    setSingleRecipe(null);
     setCategoryPicture('/docs/homepagepic.jpg')
-    
+
+  }
+
+  const handleClickMyIngredients = function (event) {
+    event.preventDefault();
+    setLastResult(null);
+    setSingleRecipe(null);
+    // setMyIngredient(true);
+    setOpenMyIngredient(true);
   }
 
   const handleClickLogin = function (event) {
@@ -60,6 +68,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
   const selectFavorite = function (recipe) {
     getSingleRecipe(recipe.ext_recipe_id)
   }
+
   return (
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid w-75">
@@ -97,7 +106,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
 
             </li>
             <li className="nav-item">
-              <a className="nav-link active" href="#">Recipe With My Ingredients</a>
+              <a onClick={handleClickMyIngredients} className="nav-link active" href="#">Recipe With My Ingredients</a>
             </li>
             {auth ?
               <>

@@ -43,11 +43,11 @@ const Recipe = function ({ singleRecipe, setSingleRecipe }) {
       <div className="ingredients-instructions">
         <div className="ingredients">
           <h1>Ingredients</h1>
-          {singleRecipe.ingredients.map(item => <p>- {item}</p>)}
+          {singleRecipe.ingredients.map((item, index) => <p key={index}>- {item}</p>)}
         </div>
         <div className="instructions">
           <h1>Instructions</h1>
-          {singleRecipe.steps.map(item => <p>- {item} </p>)}
+          {singleRecipe.steps.map((item, index) => <p key={index}>- {item} </p>)}
         </div>
       </div>
       <div className="recipe-features back-button-field">

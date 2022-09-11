@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import Info from './components/Info';
 import Login from './components/Login';
 import Register from './components/Register';
+import MyIngredients from './components/Myingredient';
 import { authContext } from './providers/AuthProvider';
 // import CounterProvider from 'providers/CounterProvider';
 
@@ -22,6 +23,9 @@ export default function App() {
   const [categoryPicture, setCategoryPicture] = useState('/docs/homepagepic.jpg');
   const [filterObject, setFilterObject] = useState({});
   const [singleRecipe, setSingleRecipe] = useState(null);
+  const [searchMyIngre, setSearchMyIngre] = useState('');
+  const [myIngredient, setMyIngredient] = useState(null);
+  const [openMyIngredient, setOpenMyIngredient] = useState(false);
 
   useEffect(() => {
     axios.get("/home")
@@ -29,8 +33,8 @@ export default function App() {
   }, []);
 
   const homeButtonClick = function () {
-   return axios.get("/home")
-    .then(res => setRandomRecipes(res.data))
+    return axios.get("/home")
+      .then(res => setRandomRecipes(res.data))
   }
 
   const keywordRecipeSearch = function (keyword) {
@@ -47,15 +51,20 @@ export default function App() {
     return axios.get(`/mealtypesearch/${keyword}`)
       .then(res => setRandomRecipes(res.data))
   }
-  
-  const filterSearch = function() {
+
+  const filterSearch = function () {
     return axios.post(`/filtersearch`, filterObject)
-    .then(res => setRandomRecipes(res.data))
+      .then(res => setRandomRecipes(res.data))
   }
 
-  const getSingleRecipe = function(recipeId) {
+  const getSingleRecipe = (recipeId) => {
     return axios.get(`/singlerecipesearch/${recipeId}`)
-    .then(res => setSingleRecipe(res.data))
+      .then(res => setSingleRecipe(res.data))
+  }
+
+  const getMyIngredients = function (myIngredients) {
+    return axios.get(`/myingredient/search?text=${myIngredients}`)
+      .then(res => setMyIngredient(res.data))
   }
 
   return (
@@ -74,14 +83,17 @@ export default function App() {
         setSingleRecipe={setSingleRecipe}
         getSingleRecipe={getSingleRecipe}
         homeButtonClick={homeButtonClick}
-        />
-      { auth ? <Info /> : islogin ? <Login 
-      open = {islogin} 
-      setOpen = {setIslogin}/> 
-      : <Register 
-      open = {isregister} 
-      setOpen = {setIsregister}/> }
-      {!singleRecipe && <Homepage
+        getMyIngredients={getMyIngredients}
+        setMyIngredient={setMyIngredient}
+        setOpenMyIngredient={setOpenMyIngredient}
+      />
+      {auth ? <Info /> : islogin ? <Login
+        open={islogin}
+        setOpen={setIslogin} />
+        : <Register
+          open={isregister}
+          setOpen={setIsregister} />}
+      {!singleRecipe && !openMyIngredient && <Homepage
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
         keywordRecipeSearch={keywordRecipeSearch}
@@ -95,11 +107,20 @@ export default function App() {
         filterObject={filterObject}
         getSingleRecipe={getSingleRecipe}
       />}
-    {singleRecipe && <Recipe
-      singleRecipe={singleRecipe}
-      setSingleRecipe={setSingleRecipe}
-    />}
+
+      {openMyIngredient && !singleRecipe && <MyIngredients
+        searchMyIngre={searchMyIngre}
+        setSearchMyIngre={setSearchMyIngre}
+        myIngredient={myIngredient}
+        setMyIngredient={setMyIngredient}
+        getMyIngredients={getMyIngredients}
+        getSingleRecipe={getSingleRecipe}
+      />}
+
+      {singleRecipe && <Recipe
+        singleRecipe={singleRecipe}
+        setSingleRecipe={setSingleRecipe}
+      />}
     </div>
- 
   );
 }
