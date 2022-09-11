@@ -22,11 +22,16 @@ export default function App() {
   const [categoryPicture, setCategoryPicture] = useState('/docs/homepagepic.jpg');
   const [filterObject, setFilterObject] = useState({});
   const [singleRecipe, setSingleRecipe] = useState(null);
+  
 
   useEffect(() => {
     axios.get("/home")
       .then(res => setRandomRecipes(res.data))
   }, []);
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const sharedRecipeId = urlParams.get('recipe');
 
   const homeButtonClick = function () {
    return axios.get("/home")
@@ -56,6 +61,12 @@ export default function App() {
   const getSingleRecipe = function(recipeId) {
     return axios.get(`/singlerecipesearch/${recipeId}`)
     .then(res => setSingleRecipe(res.data))
+  }
+
+  if (sharedRecipeId) {
+    getSingleRecipe(sharedRecipeId)
+    .then(()=> window.history.pushState({}, document.title, window.location.pathname))
+    
   }
 
   return (
@@ -96,6 +107,7 @@ export default function App() {
         getSingleRecipe={getSingleRecipe}
       />}
     {singleRecipe && <Recipe
+      key={singleRecipe.id}
       singleRecipe={singleRecipe}
       setSingleRecipe={setSingleRecipe}
     />}

@@ -9,6 +9,13 @@ const Recipe = function ({ singleRecipe, setSingleRecipe }) {
     event.preventDefault();
     setSingleRecipe(null);
   }
+
+  const handleShareClick = function (event, recipeid) {
+    event.preventDefault();
+    navigator.clipboard.writeText(`http://localhost:3000/?recipe=${recipeid}`);
+    event.target.innerHTML = 'Link Copied!';
+  }
+
   const onCheck = function (e) {
     e.preventDefault();
     axios.post('/favorites', {
@@ -50,8 +57,9 @@ const Recipe = function ({ singleRecipe, setSingleRecipe }) {
           {singleRecipe.steps.map(item => <p>- {item} </p>)}
         </div>
       </div>
-      <div className="recipe-features back-button-field">
+      <div className="recipe-features bottom-buttons-field">
         <button type="button" className="btn btn-secondary back-button" onClick={handleClick}>Back</button>
+        <button type="button" className="btn btn-secondary share-recipe-button" onClick={(event) => handleShareClick(event, singleRecipe.id)}>Share Recipe</button>
       </div>
     </div>
   )

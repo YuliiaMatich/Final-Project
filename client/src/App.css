@@ -193,13 +193,17 @@
   padding-right: 0.5rem;
 }
 
-.back-button-field {
-    justify-content: end;
+.bottom-buttons-field {
+    justify-content:space-between;
 }
 
 .back-button {
   width: 8rem;
-    margin-right: 2rem;
+  margin-left: 2rem;
+}
+
+.share-recipe-button {
+  margin-right: 2rem;
 }
 
 @keyframes zoomout {
