@@ -32,6 +32,10 @@ export default function App() {
       .then(res => setRandomRecipes(res.data))
   }, []);
 
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const sharedRecipeId = urlParams.get('recipe');
+
   const homeButtonClick = function () {
     return axios.get("/home")
       .then(res => setRandomRecipes(res.data))
@@ -65,6 +69,12 @@ export default function App() {
   const getMyIngredients = function (myIngredients) {
     return axios.get(`/myingredient/search?text=${myIngredients}`)
       .then(res => setMyIngredient(res.data))
+  }
+
+  if (sharedRecipeId) {
+    getSingleRecipe(sharedRecipeId)
+    .then(()=> window.history.pushState({}, document.title, window.location.pathname))
+    
   }
 
   return (
@@ -118,6 +128,7 @@ export default function App() {
       />}
 
       {singleRecipe && <Recipe
+        key={singleRecipe.id}
         singleRecipe={singleRecipe}
         setSingleRecipe={setSingleRecipe}
       />}

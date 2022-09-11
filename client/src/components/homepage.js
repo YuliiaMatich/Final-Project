@@ -119,25 +119,6 @@ const Homepage = function ({ randomRecipes, searchKeyword, setSearchKeyword, key
               </div>
               <hr />
 
-              <h3 className='filter-header'>Rating</h3>
-              <div className="form-check">
-                <label className="form-check-label" htmlFor="rating">
-                  More than 4.5
-                </label>
-                <input className="form-check-input" value="4.5" type="radio" name="rating" />
-              </div>
-              <div className="form-check">
-                <label className="form-check-label" htmlFor="rating">
-                  More than 4
-                </label>
-                <input className="form-check-input" value="4" type="radio" name="rating" />
-              </div>
-              <div className="form-check">
-                <label className="form-check-label" htmlFor="rating">
-                  More than 3
-                </label>
-                <input className="form-check-input" value="3" type="radio" name="rating" />
-              </div>
               <button className="btn btn-secondary filter-button" type="submit">Apply Filters</button>
               {emptyFilterAlert?<div class="alert alert-danger" role="alert">
               Please choose at least one filter criteria.
