@@ -74,7 +74,6 @@ export default function App() {
   if (sharedRecipeId) {
     getSingleRecipe(sharedRecipeId)
     .then(()=> window.history.pushState({}, document.title, window.location.pathname))
-    
   }
 
   return (
@@ -93,16 +92,18 @@ export default function App() {
         setSingleRecipe={setSingleRecipe}
         getSingleRecipe={getSingleRecipe}
         homeButtonClick={homeButtonClick}
-        getMyIngredients={getMyIngredients}
-        setMyIngredient={setMyIngredient}
+        // getMyIngredients={getMyIngredients}
+        // setMyIngredient={setMyIngredient}
         setOpenMyIngredient={setOpenMyIngredient}
       />
+
       {auth ? <Info /> : islogin ? <Login
         open={islogin}
         setOpen={setIslogin} />
         : <Register
           open={isregister}
           setOpen={setIsregister} />}
+
       {!singleRecipe && !openMyIngredient && <Homepage
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}

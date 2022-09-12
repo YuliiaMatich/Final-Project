@@ -5,7 +5,7 @@ import Loading from './loading';
 const Homepage = function ({ randomRecipes, searchKeyword, setSearchKeyword, keywordRecipeSearch, lastResult, setLastResult, categoryPicture, setCategoryPicture, setFilterObject, filterSearch, filterObject, getSingleRecipe }) {
   const [emptyFieldAlert, setEmptyFieldAlert] = useState(null);
   const [emptyFilterAlert, setEmptyFilterAlert] = useState(null);
-
+  
   const handleChange = function (event) {
     setSearchKeyword(event.target.value);
   };
