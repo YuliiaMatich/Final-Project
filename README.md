@@ -1,10 +1,11 @@
 # Cooking App
 Single page React application that is using Spoonacular API to get recipes, cuisines, ingredients.
+
 User can:
- - browse recipes by cusine/meal type; 
+ - browse recipes by cuisine/meal type; 
  - search recipes by keyword; 
  - search by various filters (cooking time, calories, diet type);
- - view detailed single recipes;
+ - view detailed recipe information;
  - add recipes to favorites;
  - share recipes.
 
