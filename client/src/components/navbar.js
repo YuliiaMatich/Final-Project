@@ -11,6 +11,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
   const handleClickCuisine = function (event) {
     event.preventDefault()
     setMenuSearchItem(event.target.innerText);
+    setOpenMyIngredient(false);
     setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     cuisineSearch(event.target.innerText);
     setLastResult(null);
@@ -20,18 +21,19 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
   const handleClickMealType = function (event) {
     event.preventDefault()
     setMenuSearchItem(event.target.innerText);
+    setOpenMyIngredient(false);
     setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     mealTypeSearch(event.target.innerText);
     setLastResult(null);
-    setSingleRecipe(null)
+    setSingleRecipe(null);
   }
 
   const handleHomeClick = function (event) {
     event.preventDefault();
     homeButtonClick();
+    setOpenMyIngredient(false);
     setSingleRecipe(null);
-    setCategoryPicture('/docs/homepagepic.jpg')
-
+    setCategoryPicture('/docs/homepagepic.jpg');
   }
 
   const handleClickMyIngredients = function (event) {
