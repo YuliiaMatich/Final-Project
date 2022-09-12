@@ -25,13 +25,13 @@ npm start
 ```
 
 ## Screenshots
-!["Search by keyword"](https://github.com/YuliiaMatich/Final-Project/blob/feature/readme/client/public/screenshots/readme_search.jpg?raw=true)
+!["Search by keyword"](https://github.com/YuliiaMatich/Final-Project/blob/master/client/public/screenshots/readme_search.jpg?raw=true)
 
-!["Search by cuisine type"](https://github.com/YuliiaMatich/Final-Project/blob/feature/readme/client/public/screenshots/readme_cuisine.jpg?raw=true)
+!["Search by cuisine type"](https://github.com/YuliiaMatich/Final-Project/blob/master/client/public/screenshots/readme_cuisine.jpg?raw=true)
 
-!["Search by meal type"](https://github.com/YuliiaMatich/Final-Project/blob/feature/readme/client/public/screenshots/readme_mealtype.jpg?raw=true)
+!["Search by meal type"](https://github.com/YuliiaMatich/Final-Project/blob/master/client/public/screenshots/readme_mealtype.jpg?raw=true)
 
-!["Single recipe page"](https://github.com/YuliiaMatich/Final-Project/blob/feature/readme/client/public/screenshots/readme_recipe.jpg?raw=true)
+!["Single recipe page"](https://github.com/YuliiaMatich/Final-Project/blob/master/client/public/screenshots/readme_recipe.jpg?raw=true)
 
 
 ## Dependencies (Frontend)
