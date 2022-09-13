@@ -1,5 +1,4 @@
 import React from 'react';
-import './Login.css';
 import { useState, useContext } from 'react';
 import { authContext } from '../providers/AuthProvider';
 import axios from 'axios';

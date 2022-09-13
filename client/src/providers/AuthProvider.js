@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 export const authContext = createContext();
 
@@ -6,24 +6,29 @@ export default function AuthProvider(props) {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    const userString = localStorage.getItem("user")
+    if (userString) {
+      setUser({ ...JSON.parse(userString)  })
+      setAuth(true)
+    }
+  },[])
   // Perform login process for the user & save authID, etc
   const login = function(user) {
-  //   if (user.email === "" || user.password === ""){
-  //     // return "Please fill login form"
-  //     setAuth(false);
-  // } else {
     setAuth(true);
+    localStorage.setItem("user", JSON.stringify(user))
     setUser({ ...user });
-  // }
   };
 
   const logout = function() {
+    localStorage.removeItem("user");
     setAuth(false);
     setUser(null);
   };
 
   const register = function(user) {
     setAuth(true);
+    localStorage.setItem("user", JSON.stringify(user))
     setUser({ ...user });
   };
 

@@ -4,7 +4,7 @@ import { authContext } from '../providers/AuthProvider';
 import Info from './Info';
 import axios from "axios";
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe, homeButtonClick, setMyIngredient, setOpenMyIngredient }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe, homeButtonClick, setOpenMyIngredient }) {
   const { auth } = useContext(authContext);
   const [favorites, setFavorites] = useState([]);
 
@@ -40,7 +40,6 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
     event.preventDefault();
     setLastResult(null);
     setSingleRecipe(null);
-    // setMyIngredient(true);
     setOpenMyIngredient(true);
   }
 
@@ -58,8 +57,9 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
 
   const handleClickFavorite = function (event) {
     event.preventDefault()
-
-    axios.get("/favorites/list")
+    const userString = localStorage.getItem("user")
+    const user = JSON.parse(userString)
+    axios.get(`/favorites/list/${user.id}`)
       .then((res) => {
         setFavorites(res.data.favorites)
       })
@@ -112,7 +112,6 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
             </li>
             {auth ?
               <>
-                {/* <li className="nav-item dropdown" > */}
                 <li className="nav-item dropdown" onClick={handleClickFavorite}>
                   <a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Favorites</a>
                   <ul className="dropdown-menu">

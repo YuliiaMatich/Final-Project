@@ -16,8 +16,9 @@ module.exports = (db) => {
         return res.rows
       })
   }
-  router.get('/list', (req, res) => {
-    getFavoriteForUser(req.session.userId)
+  router.get('/list/:userId', (req, res) => {
+    const userId = req.params.userId
+    getFavoriteForUser(userId)
       .then(favorites => {
         res.json({ favorites: favorites })
       })

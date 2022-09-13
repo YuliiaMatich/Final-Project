@@ -21,7 +21,8 @@ module.exports = (db) => {
     return db
       .query(`INSERT INTO users (name, email, password)
     VALUES ($1, $2, $3) RETURNING *;`, [user.username, user.email, user.password])
-      .then(res => { return res.rows[0] })
+      .then(res => { 
+        return res.rows[0] })
       .catch(err => {
         console.log('error message', err.stack);
         return null;
@@ -47,13 +48,13 @@ module.exports = (db) => {
               if (!user) {
                 return res.send({ error: "error" });
               }
-              console.log({ user })
+              console.log("register route", user )
               req.session.userId = user.id;
               req.session.userName = user.name;
+              res.json(user);
             })
             .catch(e => { return res.send(e) });
         }
-        res.json(user);
       });
 
   });

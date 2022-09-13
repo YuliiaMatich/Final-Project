@@ -10,7 +10,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 import MyIngredients from './components/Myingredient';
 import { authContext } from './providers/AuthProvider';
-// import CounterProvider from 'providers/CounterProvider';
 
 export default function App() {
   const [randomRecipes, setRandomRecipes] = useState(null);
@@ -28,6 +27,10 @@ export default function App() {
   const [openMyIngredient, setOpenMyIngredient] = useState(false);
 
   useEffect(() => {
+    const userObj = localStorage.getItem("user")
+    if(userObj) {
+      setIslogin(true);
+    }
     axios.get("/home")
       .then(res => setRandomRecipes(res.data))
   }, []);
@@ -80,7 +83,6 @@ export default function App() {
   return (
 
     <div className="App">
-      {/* <CounterProvider>      */}
       <Navbar
         menuSearchItem={menuSearchItem}
         setMenuSearchItem={setMenuSearchItem}
@@ -93,8 +95,6 @@ export default function App() {
         setSingleRecipe={setSingleRecipe}
         getSingleRecipe={getSingleRecipe}
         homeButtonClick={homeButtonClick}
-        getMyIngredients={getMyIngredients}
-        setMyIngredient={setMyIngredient}
         setOpenMyIngredient={setOpenMyIngredient}
       />
       {auth ? <Info /> : islogin ? <Login
