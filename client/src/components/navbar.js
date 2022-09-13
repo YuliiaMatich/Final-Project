@@ -115,8 +115,8 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
                 <li className="nav-item dropdown" onClick={handleClickFavorite}>
                   <a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Favorites</a>
                   <ul className="dropdown-menu">
-                    {favorites.map(favorite => <li key={favorite.id}>
-                      <a href="#" onClick={() => selectFavorite(favorite)}> {favorite.ext_recipe_title} </a>
+                    {favorites.map(favorite => <li key={favorite.id} className="dropdown-item">
+                      <a href="#" style={{color: "black", textDecoration: 'none' }} onClick={() => selectFavorite(favorite)}> {favorite.ext_recipe_title} </a>
                     </li>)}
                   </ul>
                 </li>
