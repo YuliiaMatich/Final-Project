@@ -33,7 +33,7 @@ const fetchFood = function(limitNumber, keyword) {
 /* GET home page. */
 router.get('/:keyword', (req, res) => {
   const keyword = req.params.keyword;
-  fetchFood(6, keyword).then(response => res.json(response));
+  fetchFood(6, keyword).then(response => (response));
 })
 
 

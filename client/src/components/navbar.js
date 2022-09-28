@@ -82,14 +82,15 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
     setSingleRecipe(null);
     setOpenMyIngredient(false);
     setOpenMyRecipe(true);
-    // const userString = localStorage.getItem("user")
-    // const user = JSON.parse(userString)
-    // axios.get(`/myrecipes/list/${user.id}`)
-    //   .then((res) => {
-    //     setMyrecipes(res.data.myrecipes)
-    //   })
-    //   .catch((error) => {
-    //   });
+    const userString = localStorage.getItem("user")
+    const user = JSON.parse(userString)
+    axios.get(`/myrecipes/list/${user.id}`)
+      .then((res) => {
+        console.log("res.data.myrecipes", res.data.myrecipes)
+        setMyrecipes(res.data.myrecipes)
+      })
+      .catch((error) => {
+      });
   };
 
   const selectMyrecipe = function (recipe) {
@@ -139,7 +140,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
             {auth ?
               <>
                 <li className="nav-item dropdown" onClick={handleClickMyRecipes}>
-                  <a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">My Recipes</a>
+                  <a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">My Recipes ({myrecipes.length})</a>
                   <ul className="dropdown-menu">
                     {myrecipes.map(myrecipe => <li key={myrecipe.id} className="dropdown-item">
                       <a href="#" style={{ color: "black", textDecoration: 'none' }} onClick={() => selectMyrecipe(myrecipe)}> {myrecipe.recipe_title} </a>

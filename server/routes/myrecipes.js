@@ -20,32 +20,10 @@ module.exports = (db) => {
   router.get('/list/:userId', (req, res) => {
     const userId = req.params.userId
     getRecipeForUser(userId)
-      .then(recipes => {
-        res.json({ recipes: recipes })
+      .then(myrecipes => {
+        res.json({ myrecipes: myrecipes })
       })
   })
-
-  // const userHasRecipe = function (user_id, recipe_title) {
-  //   return db.
-  //     query(`SELECT * from recipes
-  //     WHERE user_id =$1 AND recipe_title = $2;`, [user_id, recipe_title])
-  //     .then(res => {
-  //       if (res.rows.length === 0) {
-  //         return false
-  //       }
-  //       return true;
-  //     })
-  //     .catch(err => {
-  //       console.log('**UserHasRecipe error message', err.stack);
-  //       return false;
-  //     })
-  // }
-
-  // const userRemoveRecipe = function (user_id) {
-  //   return db.
-  //     query(`Delete from recipes
-  //     WHERE user_id =$1`, [user_id])
-  // }
 
   const addRecipe = function (recipe) {
     return db
@@ -66,9 +44,6 @@ module.exports = (db) => {
     recipe.user_id = req.session.userId;
     console.log("$$req.body", req.body)
     console.log("$$req.session.userId", req.session.userId)
-    // userHasRecipe(req.session.userId, recipe.recipe_title)
-    //   .then((userHasThisRecipe) => {
-    //     if (!userHasThisRecipe) {
     addRecipe(recipe)
       .then(recipe => {
         res.sendStatus(201);
@@ -76,8 +51,6 @@ module.exports = (db) => {
       })
       .catch(e => { return res.send(e) });
   })
-  //   })
-  // });
 
   return router;
 }

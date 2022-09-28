@@ -3,7 +3,6 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const MyRecipes = function ({ setOpenMyRecipe }) {
-  // const MyRecipeInput = function ({recipeTitle, recipeImg, recipeId, getSingleRecipe}) {
   const [myRecipeImage, setMyRecipeImage] = useState('')
   const [myRecipeTitle, setMyRecipeTitle] = useState('')
   const [myRecipeDescrip, setMyRecipeDescrip] = useState('')
@@ -12,7 +11,6 @@ const MyRecipes = function ({ setOpenMyRecipe }) {
   const [myRecipeCal, setMyRecipeCal] = useState('')
   const [myRecipeDiet, setMyRecipeDiet] = useState('')
   const [error, setError] = useState(false);
-  // const handleClose = () => setOpen(false);
 
   const onImageHandler = function (event) {
     setMyRecipeImage(event.target.value);
@@ -39,6 +37,7 @@ const MyRecipes = function ({ setOpenMyRecipe }) {
   const onSubmit = function (event) {
     event.preventDefault();
     setOpenMyRecipe(true);
+
     if (myRecipeImage.length === 0 || myRecipeTitle.length === 0 || myRecipeDescrip.length === 0 || myRecipeIngred.length === 0 || myRecipeTime.length === 0 || myRecipeCal.length === 0 || myRecipeDiet.length === 0) {
       return setError("Please fill recipe form")
     }
@@ -53,12 +52,19 @@ const MyRecipes = function ({ setOpenMyRecipe }) {
       diet: myRecipeDiet })
       .then((response) => {
         let recipeInfo = JSON.parse(response.config.data)
-        console.log("&&&response JSON.parse", recipeInfo)
+        console.log("JSON.parse", recipeInfo)
       })
       .catch((error) => {
-        console.log("!!!error.response.data", error.response.data)
+        console.log("error.response.data", error.response.data)
         setError(error.response.data)
       });
+      setMyRecipeImage('');
+      setMyRecipeTitle('');
+      setMyRecipeDescrip('');
+      setMyRecipeIngred('');
+      setMyRecipeTime('');
+      setMyRecipeCal('');
+      setMyRecipeDiet('');
   };
 
   return (
