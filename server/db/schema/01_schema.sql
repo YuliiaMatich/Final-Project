@@ -13,13 +13,11 @@ CREATE TABLE users (
 
 CREATE TABLE recipes (
  id SERIAL PRIMARY KEY NOT NULL,
- user_id INTEGER REFERENCES users(id),
- time_created TIMESTAMP DEFAULT Now(),
- time_edited TIMESTAMP DEFAULT Now(),
- recipe_title VARCHAR(255) NOT NULL,
+ user_id INTEGER REFERENCES users(id) NOT NULL,
  recipe_picture VARCHAR(255) NOT NULL,
+ recipe_title VARCHAR(255) NOT NULL,
  description TEXT NOT NULL,
- ingregients TEXT NOT NULL,
+ ingredients TEXT NOT NULL,
  total_time INTEGER NOT NULL,
  max_calories INTEGER NOT NULL,
  diet VARCHAR(255) NOT NULL

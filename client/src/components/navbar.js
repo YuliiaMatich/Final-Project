@@ -4,14 +4,16 @@ import { authContext } from '../providers/AuthProvider';
 import Info from './Info';
 import axios from "axios";
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe, homeButtonClick, setOpenMyIngredient }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe, homeButtonClick, setOpenMyIngredient, setOpenMyRecipe }) {
   const { auth } = useContext(authContext);
   const [favorites, setFavorites] = useState([]);
+  const [myrecipes, setMyrecipes] = useState([]);
 
   const handleClickCuisine = function (event) {
     event.preventDefault()
     setMenuSearchItem(event.target.innerText);
     setOpenMyIngredient(false);
+    setOpenMyRecipe(false);
     setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     cuisineSearch(event.target.innerText);
     setLastResult(null);
@@ -22,6 +24,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
     event.preventDefault()
     setMenuSearchItem(event.target.innerText);
     setOpenMyIngredient(false);
+    setOpenMyRecipe(false);
     setCategoryPicture(`/docs/${event.target.innerText.replace(/\s/g, '')}.jpg`);
     mealTypeSearch(event.target.innerText);
     setLastResult(null);
@@ -32,6 +35,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
     event.preventDefault();
     homeButtonClick();
     setOpenMyIngredient(false);
+    setOpenMyRecipe(false);
     setSingleRecipe(null);
     setCategoryPicture('/docs/homepagepic.jpg');
   }
@@ -41,6 +45,7 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
     setLastResult(null);
     setSingleRecipe(null);
     setOpenMyIngredient(true);
+    setOpenMyRecipe(false);
   }
 
   const handleClickLogin = function (event) {
@@ -70,6 +75,27 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
   const selectFavorite = function (recipe) {
     getSingleRecipe(recipe.ext_recipe_id)
   }
+
+  const handleClickMyRecipes = function (event) {
+    event.preventDefault()
+    setLastResult(null);
+    setSingleRecipe(null);
+    setOpenMyIngredient(false);
+    setOpenMyRecipe(true);
+    // const userString = localStorage.getItem("user")
+    // const user = JSON.parse(userString)
+    // axios.get(`/myrecipes/list/${user.id}`)
+    //   .then((res) => {
+    //     setMyrecipes(res.data.myrecipes)
+    //   })
+    //   .catch((error) => {
+    //   });
+  };
+
+  const selectMyrecipe = function (recipe) {
+    getSingleRecipe(recipe.id) //need to check whether it works
+  }
+  
 
   return (
     <nav className="navbar navbar-expand-lg bg-light">
@@ -112,11 +138,19 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
             </li>
             {auth ?
               <>
+                <li className="nav-item dropdown" onClick={handleClickMyRecipes}>
+                  <a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">My Recipes</a>
+                  <ul className="dropdown-menu">
+                    {myrecipes.map(myrecipe => <li key={myrecipe.id} className="dropdown-item">
+                      <a href="#" style={{ color: "black", textDecoration: 'none' }} onClick={() => selectMyrecipe(myrecipe)}> {myrecipe.recipe_title} </a>
+                    </li>)}
+                  </ul>
+                </li>
                 <li className="nav-item dropdown" onClick={handleClickFavorite}>
-                  <a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Favorites</a>
+                  <a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Favorites ({favorites.length})</a>
                   <ul className="dropdown-menu">
                     {favorites.map(favorite => <li key={favorite.id} className="dropdown-item">
-                      <a href="#" style={{color: "black", textDecoration: 'none' }} onClick={() => selectFavorite(favorite)}> {favorite.ext_recipe_title} </a>
+                      <a href="#" style={{ color: "black", textDecoration: 'none' }} onClick={() => selectFavorite(favorite)}> {favorite.ext_recipe_title} </a>
                     </li>)}
                   </ul>
                 </li>

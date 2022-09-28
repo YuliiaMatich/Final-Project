@@ -10,6 +10,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import MyIngredients from './components/Myingredient';
 import { authContext } from './providers/AuthProvider';
+import MyRecipes from './components/Myrecipes';
 
 export default function App() {
   const [randomRecipes, setRandomRecipes] = useState(null);
@@ -25,10 +26,11 @@ export default function App() {
   const [searchMyIngre, setSearchMyIngre] = useState('');
   const [myIngredient, setMyIngredient] = useState(null);
   const [openMyIngredient, setOpenMyIngredient] = useState(false);
+  const [openMyRecipe, setOpenMyRecipe] = useState(false);
 
   useEffect(() => {
     const userObj = localStorage.getItem("user")
-    if(userObj) {
+    if (userObj) {
       setIslogin(true);
     }
     axios.get("/home")
@@ -43,6 +45,11 @@ export default function App() {
     return axios.get("/home")
       .then(res => setRandomRecipes(res.data))
   }
+
+  // const logoutButtonClick = function () {
+  //   return axios.get("/home")
+  //     .then(res => setRandomRecipes(res.data))
+  // }
 
   const keywordRecipeSearch = function (keyword) {
     return axios.get(`/keywordrecipessearch/${keyword}`)
@@ -74,10 +81,10 @@ export default function App() {
       .then(res => setMyIngredient(res.data))
   }
 
+
   if (sharedRecipeId) {
     getSingleRecipe(sharedRecipeId)
-    .then(()=> window.history.pushState({}, document.title, window.location.pathname))
-    
+      .then(() => window.history.pushState({}, document.title, window.location.pathname))
   }
 
   return (
@@ -96,14 +103,21 @@ export default function App() {
         getSingleRecipe={getSingleRecipe}
         homeButtonClick={homeButtonClick}
         setOpenMyIngredient={setOpenMyIngredient}
+        setOpenMyRecipe={setOpenMyRecipe}
+      // logoutButtonClick={logoutButtonClick}
       />
-      {auth ? <Info /> : islogin ? <Login
-        open={islogin}
-        setOpen={setIslogin} />
-        : <Register
-          open={isregister}
-          setOpen={setIsregister} />}
-      {!singleRecipe && !openMyIngredient && <Homepage
+
+      {auth
+        ? <Info />
+        : islogin
+          ? <Login
+            open={islogin}
+            setOpen={setIslogin} />
+          : <Register
+            open={isregister}
+            setOpen={setIsregister} />}
+
+      {!singleRecipe && !openMyIngredient && !openMyRecipe && <Homepage
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
         keywordRecipeSearch={keywordRecipeSearch}
@@ -118,7 +132,7 @@ export default function App() {
         getSingleRecipe={getSingleRecipe}
       />}
 
-      {openMyIngredient && !singleRecipe && <MyIngredients
+      {openMyIngredient && !singleRecipe && !openMyRecipe && <MyIngredients
         searchMyIngre={searchMyIngre}
         setSearchMyIngre={setSearchMyIngre}
         myIngredient={myIngredient}
@@ -127,11 +141,16 @@ export default function App() {
         getSingleRecipe={getSingleRecipe}
       />}
 
+      {openMyRecipe && !singleRecipe && <MyRecipes
+        setOpenMyRecipe={setOpenMyRecipe}
+      />}
+
       {singleRecipe && <Recipe
         key={singleRecipe.id}
         singleRecipe={singleRecipe}
         setSingleRecipe={setSingleRecipe}
       />}
+
     </div>
   );
 }

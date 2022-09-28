@@ -25,6 +25,7 @@ const mealTypeSearch = require('./routes/mealtypesearch');
 const filterSearch = require('./routes/filtersearch');
 const singleRecipeSearch = require('./routes/singlerecipesearch');
 const myingredientRouter = require('./routes/myingredient');
+const myrecipesRouter = require('./routes/myrecipes');
 
 var app = express();
 app.use(cors())
@@ -51,6 +52,7 @@ app.use('/users', usersRouter(db));
 app.use('/home', homeRouter);
 app.use('/register', registerRouter(db));
 app.use('/favorites', favoritesRouter(db));
+app.use('/myrecipes', myrecipesRouter(db));
 
 app.use('/keywordrecipessearch', keywordRecipeSearch);
 app.use('/cuisinesearch', cuisineSearch);
