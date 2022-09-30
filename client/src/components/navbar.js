@@ -4,7 +4,7 @@ import { authContext } from '../providers/AuthProvider';
 import Info from './Info';
 import axios from "axios";
 
-const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe, homeButtonClick, setOpenMyIngredient, setOpenMyRecipe }) {
+const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, islogin, isregister, setLastResult, setCategoryPicture, setSingleRecipe, getSingleRecipe, getSingleMyRecipe, homeButtonClick, setOpenMyIngredient, setOpenMyRecipe, setSingleMyRecipe }) {
   const { auth } = useContext(authContext);
   const [favorites, setFavorites] = useState([]);
   const [myrecipes, setMyrecipes] = useState([]);
@@ -93,8 +93,8 @@ const Navbar = function ({ setMenuSearchItem, cuisineSearch, mealTypeSearch, isl
       });
   };
 
-  const selectMyrecipe = function (recipe) {
-    getSingleRecipe(recipe.id) //need to check whether it works
+  const selectMyrecipe = function (recipes) {
+    getSingleMyRecipe(recipes.id) //need to check whether it works
   }
   
 

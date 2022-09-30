@@ -11,6 +11,7 @@ import Register from './components/Register';
 import MyIngredients from './components/Myingredient';
 import { authContext } from './providers/AuthProvider';
 import MyRecipes from './components/Myrecipes';
+import MyRecipeShow from './components/Myrecipeshow';
 
 export default function App() {
   const [randomRecipes, setRandomRecipes] = useState(null);
@@ -23,6 +24,7 @@ export default function App() {
   const [categoryPicture, setCategoryPicture] = useState('/docs/homepagepic.jpg');
   const [filterObject, setFilterObject] = useState({});
   const [singleRecipe, setSingleRecipe] = useState(null);
+  const [singleMyRecipe, setSingleMyRecipe] = useState(null);
   const [searchMyIngre, setSearchMyIngre] = useState('');
   const [myIngredient, setMyIngredient] = useState(null);
   const [openMyIngredient, setOpenMyIngredient] = useState(false);
@@ -45,11 +47,6 @@ export default function App() {
     return axios.get("/home")
       .then(res => setRandomRecipes(res.data))
   }
-
-  // const logoutButtonClick = function () {
-  //   return axios.get("/home")
-  //     .then(res => setRandomRecipes(res.data))
-  // }
 
   const keywordRecipeSearch = function (keyword) {
     return axios.get(`/keywordrecipessearch/${keyword}`)
@@ -74,6 +71,12 @@ export default function App() {
   const getSingleRecipe = (recipeId) => {
     return axios.get(`/singlerecipesearch/${recipeId}`)
       .then(res => setSingleRecipe(res.data))
+  }
+
+  const getSingleMyRecipe = (myrecipeId) => {
+    return axios.get(`/myrecipes/recipelist/${myrecipeId}`)
+      .then(res => setSingleMyRecipe(res.data))
+      
   }
 
   const getMyIngredients = function (myIngredients) {
@@ -104,7 +107,7 @@ export default function App() {
         homeButtonClick={homeButtonClick}
         setOpenMyIngredient={setOpenMyIngredient}
         setOpenMyRecipe={setOpenMyRecipe}
-      // logoutButtonClick={logoutButtonClick}
+        getSingleMyRecipe={getSingleMyRecipe}
       />
 
       {auth
@@ -141,16 +144,22 @@ export default function App() {
         getSingleRecipe={getSingleRecipe}
       />}
 
-      {openMyRecipe && !singleRecipe && <MyRecipes
+      {openMyRecipe && !singleRecipe && !singleMyRecipe && <MyRecipes
+        // {openMyRecipe && !singleRecipe && <MyRecipes
         setOpenMyRecipe={setOpenMyRecipe}
-      />}
+getSingleMyRecipe={getSingleMyRecipe}
+        />}
+
+      {!singleRecipe && singleMyRecipe && <MyRecipeShow
+        singleMyRecipe={singleMyRecipe}
+        setSingleMyRecipe={setSingleMyRecipe}
+        />}
 
       {singleRecipe && <Recipe
         key={singleRecipe.id}
         singleRecipe={singleRecipe}
         setSingleRecipe={setSingleRecipe}
       />}
-
     </div>
   );
 }

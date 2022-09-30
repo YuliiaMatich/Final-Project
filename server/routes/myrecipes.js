@@ -17,11 +17,29 @@ module.exports = (db) => {
       })
   }
 
+  const getSingleRecipeForUser = function (id) {
+    return db.
+      query(`SELECT * from recipes
+    WHERE id=$1`, [id])
+      .then(res => {
+        return res.rows
+      })
+  }
+
+
   router.get('/list/:userId', (req, res) => {
     const userId = req.params.userId
     getRecipeForUser(userId)
       .then(myrecipes => {
         res.json({ myrecipes: myrecipes })
+      })
+  })
+
+  router.get('/recipelist/:myrecipeId', (req, res) => {
+    const myrecipeId = req.params.myrecipeId
+    getSingleRecipeForUser(myrecipeId)
+      .then(myrecipe => {
+        res.json({ myrecipe: myrecipe })
       })
   })
 
